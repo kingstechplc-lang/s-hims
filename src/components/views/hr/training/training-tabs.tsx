@@ -850,7 +850,7 @@ function NewCertificateDialog({ onClose }: { onClose: () => void }) {
           </div>
           <div className="space-y-1.5">
             <Label>Issuing Organization</Label>
-            <Input value={issuingOrganization} onChange={(e) => setIssuingOrganization(e.target.value)} placeholder="e.g., Joy Emmanuel Hospital" />
+            <Input value={issuingOrganization} onChange={(e) => setIssuingOrganization(e.target.value)} placeholder="e.g., Spectra Health" />
           </div>
           <div className="space-y-1.5">
             <Label>Document URL (optional)</Label>

@@ -363,7 +363,7 @@ function SidebarContent({
         </div>
         {!collapsed && (
           <div className="min-w-0">
-            <p className="text-sm font-bold text-white truncate">Joy Emmanuel</p>
+            <p className="text-sm font-bold text-white truncate">Spectra Health</p>
             <p className="text-[10px] text-slate-400 uppercase tracking-wider">Hospital HMIS</p>
           </div>
         )}
@@ -409,7 +409,7 @@ function SidebarContent({
       <div className="border-t border-slate-700/50 p-3 shrink-0 bg-slate-950/30">
         {!collapsed ? (
           <div className="text-[10px] text-slate-500 leading-tight">
-            <p className="font-semibold text-slate-400">© {new Date().getFullYear()} Joy Emmanuel Hospital</p>
+            <p className="font-semibold text-slate-400">© {new Date().getFullYear()} Spectra Health</p>
             <p className="mt-0.5">v1.0.0 • Multi-facility HMIS</p>
           </div>
         ) : (

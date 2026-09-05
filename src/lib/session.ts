@@ -86,12 +86,12 @@ export async function auditLog(params: {
 }
 
 // =====================================================================
-// NUMBERING HELPERS (JEM-0000001, ENC-2026-000001, etc.)
+// NUMBERING HELPERS (SPECTRA-0000001, ENC-2026-000001, etc.)
 // =====================================================================
 export async function nextPatientNumber(orgId: string): Promise<string> {
   for (let attempt = 0; attempt < 10; attempt++) {
     const count = await db.patient.count({ where: { organizationId: orgId } });
-    const candidate = `JEM-${String(count + 1 + attempt).padStart(7, "0")}`;
+    const candidate = `SPECTRA-${String(count + 1 + attempt).padStart(7, "0")}`;
     const existing = await db.patient.findFirst({
       where: { organizationId: orgId, patientNumber: candidate },
       select: { id: true },
@@ -99,7 +99,7 @@ export async function nextPatientNumber(orgId: string): Promise<string> {
     if (!existing) return candidate;
   }
   const timestamp = Date.now().toString(36).toUpperCase().slice(-6);
-  return `JEM-${timestamp}`;
+  return `SPECTRA-${timestamp}`;
 }
 
 export async function nextEncounterNumber(facilityId: string): Promise<string> {

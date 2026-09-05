@@ -1,11 +1,11 @@
-# Deploying Joy Emmanuel Hospital HMIS to Vercel
+# Deploying Spectra Health HMIS to Vercel
 
 This guide walks you through deploying the HMIS to Vercel with your existing Neon PostgreSQL database.
 
 ## Prerequisites
 
 - A Vercel account (free Hobby tier works fine; Pro recommended for production)
-- The GitHub repo: https://github.com/kingstechplc-lang/joy-emmanuel-hospital-hmis
+- The GitHub repo: https://github.com/kingstechplc-lang/s-hims
 - A Neon PostgreSQL database (already configured — connection string in your `.env`)
 
 ## Deployment Steps
@@ -14,7 +14,7 @@ This guide walks you through deploying the HMIS to Vercel with your existing Neo
 
 1. Go to https://vercel.com/new
 2. Click **Import Git Repository**
-3. Find and select `kingstechplc-lang/joy-emmanuel-hospital-hmis`
+3. Find and select `kingstechplc-lang/s-hims`
 4. Click **Import**
 
 ### 2. Configure the Project
@@ -50,7 +50,7 @@ Click **Deploy**. The build will take ~2-4 minutes:
 ### 5. Update NEXTAUTH_URL
 
 After the first deploy completes:
-1. Copy your Vercel URL (e.g., `https://joy-emmanuel-hospital-hmis.vercel.app`)
+1. Copy your Vercel URL (e.g., `https://s-hims.vercel.app`)
 2. Go to Vercel → Project Settings → Environment Variables
 3. Update `NEXTAUTH_URL` to your new URL
 4. Trigger a redeploy (Deployments → ⋮ → Redeploy)
@@ -137,8 +137,8 @@ If you ever need to repopulate the database:
 
 ```bash
 # Clone the repo locally
-git clone https://github.com/kingstechplc-lang/joy-emmanuel-hospital-hmis.git
-cd joy-emmanuel-hospital-hmis
+git clone https://github.com/kingstechplc-lang/s-hims.git
+cd s-hims
 
 # Install dependencies
 bun install
@@ -188,8 +188,8 @@ This is Neon warming up. Subsequent requests will be fast. If unacceptable, upgr
 ## Vercel Dashboard URLs
 
 After deployment, you can manage your app at:
-- **Project**: https://vercel.com/kingstechplc-lang/joy-emmanuel-hospital-hmis
-- **Deployments**: https://vercel.com/kingstechplc-lang/joy-emmanuel-hospital-hmis/deployments
-- **Analytics**: https://vercel.com/kingstechplc-lang/joy-emmanuel-hospital-hmis/analytics
-- **Logs**: https://vercel.com/kingstechplc-lang/joy-emmanuel-hospital-hmis/logs
-- **Settings**: https://vercel.com/kingstechplc-lang/joy-emmanuel-hospital-hmis/settings
+- **Project**: https://vercel.com/kingstechplc-lang/s-hims
+- **Deployments**: https://vercel.com/kingstechplc-lang/s-hims/deployments
+- **Analytics**: https://vercel.com/kingstechplc-lang/s-hims/analytics
+- **Logs**: https://vercel.com/kingstechplc-lang/s-hims/logs
+- **Settings**: https://vercel.com/kingstechplc-lang/s-hims/settings

@@ -1,6 +1,6 @@
-# Contributing to Joy Emmanuel Hospital HMIS
+# Contributing to Spectra Health HMIS
 
-Thank you for your interest in contributing to the Joy Emmanuel Hospital Management Information System (HMIS). This document outlines the process for contributing code, reporting issues, and submitting pull requests.
+Thank you for your interest in contributing to the Spectra Health Management Information System (HMIS). This document outlines the process for contributing code, reporting issues, and submitting pull requests.
 
 ## Table of Contents
 
@@ -29,8 +29,8 @@ Be respectful, professional, and constructive in all interactions. Harassment, d
 1. **Fork** the repository on GitHub.
 2. **Clone** your fork locally:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/joy-emmanuel-hospital-hmis.git
-   cd joy-emmanuel-hospital-hmis
+   git clone https://github.com/YOUR_USERNAME/s-hims.git
+   cd s-hims
    ```
 3. **Install dependencies**:
    ```bash

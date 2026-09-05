@@ -318,7 +318,7 @@ async function main() {
   const nhis = await prisma.insuranceProvider.findFirst({ where: { organizationId: org.id, code: "NHIS" } });
   for (let i = 0; i < samplePatients.length; i++) {
     const sp = samplePatients[i];
-    const patientNumber = `JEM-${String(i + 1).padStart(7, "0")}`;
+    const patientNumber = `SPECTRA-${String(i + 1).padStart(7, "0")}`;
     const existing = await prisma.patient.findUnique({
       where: { organizationId_patientNumber: { organizationId: org.id, patientNumber } },
     });

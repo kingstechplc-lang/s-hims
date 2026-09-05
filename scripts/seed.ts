@@ -1,5 +1,5 @@
 // =====================================================================
-// SEED SCRIPT — Joy Emmanuel Hospital HMIS
+// SEED SCRIPT — Spectra Health HMIS
 // =====================================================================
 import { config } from "dotenv";
 config({ override: true });
@@ -10,19 +10,19 @@ import { PERMISSIONS, ROLE_PERMISSIONS } from "../src/lib/permissions";
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log("🌱 Seeding Joy Emmanuel Hospital HMIS...");
+  console.log("🌱 Seeding Spectra Health HMIS...");
 
   const org = await prisma.organization.upsert({
     where: { code: "JEM" },
     update: {},
     create: {
-      name: "Joy Emmanuel Hospital",
+      name: "Spectra Health",
       code: "JEM",
-      description: "Joy Emmanuel Hospital — Multi-facility Healthcare Network",
+      description: "Spectra Health — Multi-facility Healthcare Network",
       phone: "+233 30 000 0000",
-      email: "info@joyemmanuelhospital.org",
+      email: "info@spectrahealth.org",
       address: "Accra, Ghana",
-      website: "https://joyemmanuelhospital.org",
+      website: "https://spectrahealth.org",
       status: "active",
       settings: JSON.stringify({ currency: "GHS", timezone: "Africa/Accra" }),
     },
@@ -30,9 +30,9 @@ async function main() {
   console.log(`✓ Organization: ${org.name}`);
 
   const facilitiesData = [
-    { name: "Joy Emmanuel Hospital — Accra", code: "JEM-ACCRA", facilityType: "hospital", address: "Independence Ave, Accra", city: "Accra", region: "Greater Accra", country: "Ghana", phone: "+233 30 111 1111", email: "accra@joyemmanuelhospital.org" },
-    { name: "Joy Emmanuel Hospital — Assin Fosu", code: "JEM-ASSIN", facilityType: "hospital", address: "Assin Fosu, Central Region", city: "Assin Fosu", region: "Central", country: "Ghana", phone: "+233 30 222 2222", email: "assin@joyemmanuelhospital.org" },
-    { name: "Joy Emmanuel Hospital — Tema", code: "JEM-TEMA", facilityType: "hospital", address: "Harbour Rd, Tema", city: "Tema", region: "Greater Accra", country: "Ghana", phone: "+233 30 333 3333", email: "tema@joyemmanuelhospital.org" },
+    { name: "Spectra Health — Accra", code: "SPECTRA-ACCRA", facilityType: "hospital", address: "Independence Ave, Accra", city: "Accra", region: "Greater Accra", country: "Ghana", phone: "+233 30 111 1111", email: "accra@spectrahealth.org" },
+    { name: "Spectra Health — Assin Fosu", code: "SPECTRA-ASSIN", facilityType: "hospital", address: "Assin Fosu, Central Region", city: "Assin Fosu", region: "Central", country: "Ghana", phone: "+233 30 222 2222", email: "assin@spectrahealth.org" },
+    { name: "Spectra Health — Tema", code: "SPECTRA-TEMA", facilityType: "hospital", address: "Harbour Rd, Tema", city: "Tema", region: "Greater Accra", country: "Ghana", phone: "+233 30 333 3333", email: "tema@spectrahealth.org" },
   ];
 
   const facilities: any[] = [];
@@ -639,7 +639,7 @@ async function main() {
   ];
   for (let i = 0; i < samplePatients.length; i++) {
     const sp = samplePatients[i];
-    const patientNumber = `JEM-${String(i + 1).padStart(7, "0")}`;
+    const patientNumber = `SPECTRA-${String(i + 1).padStart(7, "0")}`;
     const existing = await prisma.patient.findUnique({
       where: { organizationId_patientNumber: { organizationId: org.id, patientNumber } },
     });

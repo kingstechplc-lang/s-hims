@@ -29,7 +29,7 @@ export function LoginView() {
       toast.error("Invalid credentials or account locked");
       return;
     }
-    toast.success("Welcome back to Joy Emmanuel Hospital HMIS");
+    toast.success("Welcome back to Spectra Health HMIS");
     router.refresh();
   };
 
@@ -64,7 +64,7 @@ export function LoginView() {
               <ShieldPlus className="w-7 h-7" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold tracking-tight">Joy Emmanuel Hospital</h1>
+              <h1 className="text-2xl font-bold tracking-tight">Spectra Health</h1>
               <p className="text-emerald-100 text-sm">Hospital Management Information System</p>
             </div>
           </div>
@@ -85,7 +85,7 @@ export function LoginView() {
           </h2>
           <p className="text-emerald-100/90 max-w-md leading-relaxed">
             A centralized, secure HMIS that maintains a longitudinal medical record
-            across every Joy Emmanuel Hospital location — Assin Fosu, Accra, Tema and beyond.
+            across every Spectra Health location — Accra, Tema, Kumasi and beyond.
           </p>
           <ul className="text-sm space-y-2.5 text-emerald-50">
             <li className="flex items-center gap-2">
@@ -109,7 +109,7 @@ export function LoginView() {
 
         {/* Footer */}
         <div className="relative text-xs text-emerald-200/70 flex items-center justify-between">
-          <span>© {new Date().getFullYear()} Joy Emmanuel Hospital</span>
+          <span>© {new Date().getFullYear()} Spectra Health</span>
           <span className="flex items-center gap-1.5">
             <Lock className="w-3 h-3" />
             HIPAA-style audit logging

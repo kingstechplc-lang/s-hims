@@ -71,7 +71,7 @@ export function FacilityPrintProvider({ children }: { children: React.ReactNode 
       const orgLogo = (f as any)?.organization?.logoUrl || (f as any)?.logoUrl || null;
       const branding: FacilityBranding = {
         id: f.id,
-        name: f.name || "Joy Emmanuel Hospital",
+        name: f.name || "Spectra Health",
         address: f.address || null,
         city: f.city || null,
         region: f.region || null,

@@ -26,7 +26,7 @@ export function getApiDocs(): OpenApiSpec {
   return {
     openapi: "3.0.0",
     info: {
-      title: "Joy Emmanuel Hospital HMIS API",
+      title: "Spectra Health HMIS API",
       version: "1.0.0",
       description:
         "Multi-Facility Hospital Management Information System API. " +

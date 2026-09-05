@@ -1,12 +1,12 @@
-# Joy Emmanuel Hospital — HMIS
+# Spectra Health — HMIS
 
-A complete, production-ready **Multi-facility Hospital Management Information System (HMIS/HIMS)** for Joy Emmanuel Hospital.
+A complete, production-ready **Multi-facility Hospital Management Information System (HMIS/HIMS)** for Spectra Health.
 
 Built with **Next.js 16**, **TypeScript**, **Prisma ORM**, **NextAuth.js**, **shadcn/ui**, and **Tailwind CSS**.
 
 > **Production stack**: Deployed on **Vercel** with **Neon PostgreSQL**. See [DEPLOYMENT.md](./DEPLOYMENT.md) for the full deployment guide.
 
-> **Core Principle**: ONE PATIENT = ONE MASTER PATIENT RECORD. Patients are organization-level (NOT facility-owned); encounters are facility-specific. A patient registered at Facility A can visit Facility B without creating a duplicate record — their entire longitudinal medical history is preserved across all Joy Emmanuel Hospital facilities.
+> **Core Principle**: ONE PATIENT = ONE MASTER PATIENT RECORD. Patients are organization-level (NOT facility-owned); encounters are facility-specific. A patient registered at Facility A can visit Facility B without creating a duplicate record — their entire longitudinal medical history is preserved across all Spectra Health facilities.
 
 ---
 
@@ -101,8 +101,8 @@ Built with **Next.js 16**, **TypeScript**, **Prisma ORM**, **NextAuth.js**, **sh
 
 ```bash
 # Clone the repository
-git clone https://github.com/kingstechplc-lang/joy-emmanuel-hospital-hmis.git
-cd joy-emmanuel-hospital-hmis
+git clone https://github.com/kingstechplc-lang/s-hims.git
+cd s-hims
 
 # Install dependencies
 bun install
@@ -151,7 +151,7 @@ Open http://localhost:3000 in your browser.
 
 The seed script (`scripts/seed.ts`) creates:
 
-- **1 Organization**: Joy Emmanuel Hospital
+- **1 Organization**: Spectra Health
 - **3 Facilities**: Accra, Kasoa, Tema (each with 16 departments, 6 wards, 6 rooms × 6 beds)
 - **13 Default Users** (one per role, see above)
 - **92 Permissions** across 16 modules
@@ -389,10 +389,10 @@ Custom roles can be created via Admin → Roles.
 
 ## 📝 License
 
-This project is proprietary to Joy Emmanuel Hospital. All rights reserved.
+This project is proprietary to Spectra Health. All rights reserved.
 
 ---
 
 ## 🤝 Contributing
 
-This is a private project for Joy Emmanuel Hospital. For changes, please coordinate with the hospital's IT department.
+This is a private project for Spectra Health. For changes, please coordinate with the hospital's IT department.

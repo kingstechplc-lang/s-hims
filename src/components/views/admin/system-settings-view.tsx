@@ -23,7 +23,7 @@ async function fetchJson(url: string) {
 
 // Default setting keys for each tab
 const GENERAL_SETTINGS = [
-  { key: "general_org_name", label: "Organization Name", type: "string", placeholder: "Joy Emmanuel Hospital" },
+  { key: "general_org_name", label: "Organization Name", type: "string", placeholder: "Spectra Health" },
   { key: "general_org_code", label: "Organization Code", type: "string", placeholder: "JEM" },
   { key: "general_org_phone", label: "Organization Phone", type: "string", placeholder: "+233 30 123 4567" },
   { key: "general_org_email", label: "Organization Email", type: "string", placeholder: "info@joyemmmanuel.org" },

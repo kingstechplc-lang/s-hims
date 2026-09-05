@@ -22,8 +22,8 @@
 
 | Claim ID | Claim # | Patient | Encounter | Invoice | Coverage | Classification | Recommended Action |
 |---|---|---|---|---|---|---|---|
-| cmsy3zldv0001ib04ku1kne3v | CLM-2026-000001 | Yaw Prempeh (JEM-0000003) | NULL (invoice also NULL) | INV-2026-000001 (encId=null, total=260, paid) | No EncounterCoverage | **Category D** — Unsafe to auto-reconcile | Preserve as historical |
-| cmtds2du00001jj0465w3qyqb | CLM-2026-000001 | Test Dashboard (JEM-0000005) | NULL (invoice also NULL) | INV-2026-000001 (encId=null, total=215, partially_paid) | No EncounterCoverage | **Category D** — Unsafe to auto-reconcile | Preserve as historical |
+| cmsy3zldv0001ib04ku1kne3v | CLM-2026-000001 | Yaw Prempeh (SPECTRA-0000003) | NULL (invoice also NULL) | INV-2026-000001 (encId=null, total=260, paid) | No EncounterCoverage | **Category D** — Unsafe to auto-reconcile | Preserve as historical |
+| cmtds2du00001jj0465w3qyqb | CLM-2026-000001 | Test Dashboard (SPECTRA-0000005) | NULL (invoice also NULL) | INV-2026-000001 (encId=null, total=215, partially_paid) | No EncounterCoverage | **Category D** — Unsafe to auto-reconcile | Preserve as historical |
 
 ---
 
@@ -33,14 +33,14 @@
 - **Created:** 2026-08-18
 - **Status:** paid
 - **Amount:** GHS 260
-- **Patient:** Yaw Prempeh (JEM-0000003)
+- **Patient:** Yaw Prempeh (SPECTRA-0000003)
 - **Invoice:** INV-2026-000001 (total=260, status=paid, **encounterId=null**)
-- **Facility:** Joy Emmanuel Hospital — Tema (JEM-TEMA)
+- **Facility:** Spectra Health — Tema (SPECTRA-TEMA)
 - **Provider:** NHIS
 
 **Why Category D:**
 - The invoice itself has no encounterId, so we cannot deterministically link the claim to an encounter via the invoice.
-- The patient has 3 encounters at 3 different facilities. While one matches the claim's facilityId (JEM-TEMA), we cannot prove the invoice belongs to that specific encounter.
+- The patient has 3 encounters at 3 different facilities. While one matches the claim's facilityId (SPECTRA-TEMA), we cannot prove the invoice belongs to that specific encounter.
 - The claim status is "paid" — modifying a paid claim's encounterId could corrupt financial history.
 - **Recommendation:** Preserve as historical. This claim was created before the encounter linkage feature was implemented.
 
@@ -48,15 +48,15 @@
 - **Created:** 2026-08-29
 - **Status:** draft
 - **Amount:** GHS 74.20
-- **Patient:** Test Dashboard (JEM-0000005)
+- **Patient:** Test Dashboard (SPECTRA-0000005)
 - **Invoice:** INV-2026-000001 (total=215, status=partially_paid, **encounterId=null**)
-- **Facility:** Joy Emmanuel Hospital — Accra (JEM-ACCRA)
+- **Facility:** Spectra Health — Accra (SPECTRA-ACCRA)
 - **Provider:** NHIS
 
 **Why Category D:**
 - Same issue — the invoice has no encounterId, so we cannot deterministically link.
-- The patient has 1 encounter, at a different facility (JEM-TEMA vs JEM-ACCRA).
-- Wait — re-checking: the encounter is at facility cmstwj3z20002u8q2yjghw4th. The claim facility is JEM-ACCRA. Need to verify facility mapping.
+- The patient has 1 encounter, at a different facility (SPECTRA-TEMA vs SPECTRA-ACCRA).
+- Wait — re-checking: the encounter is at facility cmstwj3z20002u8q2yjghw4th. The claim facility is SPECTRA-ACCRA. Need to verify facility mapping.
 - The mismatch between the patient's encounter facility and the claim facility makes auto-reconciliation unsafe.
 - **Recommendation:** Preserve as historical. This appears to be a test claim created during development.
 

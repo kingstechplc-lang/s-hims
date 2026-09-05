@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Joy Emmanuel Hospital — HMIS",
-  description: "Joy Emmanuel Hospital — Multi-facility Hospital Management Information System",
+  title: "Spectra Health — HMIS",
+  description: "Spectra Health Information Management System — Multi-facility Hospital Management",
   manifest: "/manifest.json",
   applicationName: "JEM HMIS",
   appleWebApp: {

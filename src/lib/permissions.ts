@@ -1,5 +1,5 @@
 // =====================================================================
-// PERMISSION CONSTANTS — Joy Emmanuel Hospital HMIS
+// PERMISSION CONSTANTS — Spectra Health HMIS
 // =====================================================================
 // All granular permissions used by the RBAC system.
 // =====================================================================

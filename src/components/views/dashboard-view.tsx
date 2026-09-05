@@ -359,7 +359,7 @@ export function DashboardView() {
         <Card>
           <CardContent className="p-12 text-center">
             <ShieldCheck className="w-12 h-12 mx-auto mb-4 text-emerald-500" />
-            <h3 className="text-lg font-semibold text-slate-900 mb-1">Welcome to Joy Emmanuel Hospital HMIS</h3>
+            <h3 className="text-lg font-semibold text-slate-900 mb-1">Welcome to Spectra Health HMIS</h3>
             <p className="text-sm text-slate-500 max-w-md mx-auto">
               You are logged in as <strong>{role.replace(/_/g, " ").replace(/\b\w/g, (c: string) => c.toUpperCase())}</strong>.
               Your dashboard will display relevant statistics and quick actions based on your assigned permissions.

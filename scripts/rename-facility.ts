@@ -3,13 +3,13 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 async function main() {
   const updated = await prisma.facility.updateMany({
-    where: { code: "JEM-KASOA" },
+    where: { code: "SPECTRA-KASOA" },
     data: {
-      name: "Joy Emmanuel Hospital — Assin Fosu",
-      code: "JEM-ASSIN",
+      name: "Spectra Health — Assin Fosu",
+      code: "SPECTRA-ASSIN",
       address: "Assin Fosu, Central Region",
       city: "Assin Fosu",
-      email: "assin@joyemmanuelhospital.org",
+      email: "assin@spectrahealth.org",
     },
   });
   console.log(`Updated ${updated.count} facility from Kasoa → Assin Fosu`);
