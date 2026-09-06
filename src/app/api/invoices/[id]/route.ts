@@ -651,7 +651,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
             ? "paid"
             : existing.status === "draft"
               ? "draft"
-              : toNum(existing.amountPaid) > 0
+              : toNumOr(existing.amountPaid, 0) > 0
                 ? "partially_paid"
                 : existing.status;
 
