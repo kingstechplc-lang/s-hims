@@ -172,8 +172,8 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
         });
         const isNhis = patientInsurance?.insuranceProvider?.code?.toUpperCase().includes("NHIS");
         const unitPrice = isNhis && ancService.nhisPrice != null
-          ? toNum(ancService.nhisPrice)
-          : toNum(ancService.defaultPrice);
+          ? toNumOr(ancService.nhisPrice, 0)
+          : toNumOr(ancService.defaultPrice, 0);
 
         await tx.invoiceItem.create({
           data: {
