@@ -643,7 +643,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
         const newAmountCredited = (existing.amountCredited || 0) + creditAmount;
         const newBalance = Math.max(
           0,
-          existing.total - existing.amountPaid - newAmountCredited - existing.amountRefunded
+          toNumOr(existing.total, 0) - toNumOr(existing.amountPaid, 0) - newAmountCredited - toNumOr(existing.amountRefunded, 0)
         );
         // If credit covers full balance, mark as paid
         const newStatus =
