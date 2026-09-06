@@ -9,6 +9,7 @@ import { getSession, hasPermission, auditLog } from "@/lib/session";
 import { PERMISSIONS } from "@/lib/permissions";
 
 import { apiRouteConfig } from "@/lib/api-route-config";
+import { toNum, toNumOr } from "@/lib/decimal-utils";
 
 export const { dynamic, revalidate, maxDuration } = apiRouteConfig;
 
@@ -62,7 +63,9 @@ export async function GET(req: Request) {
     },
   });
 
-  return NextResponse.json({ items: medications, count: medications.length });
+  const items = medications.map(m => ({ ...m, nhisTariffAmount: toNum(m.nhisTariffAmount) }));
+
+  return NextResponse.json({ items, count: items.length });
 }
 
 export async function POST(req: Request) {
@@ -187,5 +190,5 @@ export async function POST(req: Request) {
     },
   });
 
-  return NextResponse.json({ item: med }, { status: 201 });
+  return NextResponse.json({ item: { ...med, nhisTariffAmount: toNum(med.nhisTariffAmount) } }, { status: 201 });
 }

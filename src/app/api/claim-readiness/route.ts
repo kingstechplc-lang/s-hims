@@ -94,7 +94,7 @@ async function buildReadinessContext(
       name: it.service!.name,
       code: it.service!.code,
       nhisServiceCode: it.service!.nhisServiceCode,
-      nhisPrice: it.service!.nhisPrice,
+      nhisPrice: it.service!.nhisPrice?.toNumber() ?? null,
       nhisEligible: it.service!.nhisEligible,
     })) || [];
 
@@ -119,7 +119,7 @@ async function buildReadinessContext(
     id: pi.medication.id,
     genericName: pi.medication.genericName,
     nhisCode: pi.medication.nhisCode,
-    nhisTariffAmount: pi.medication.nhisTariffAmount,
+    nhisTariffAmount: pi.medication.nhisTariffAmount?.toNumber() ?? null,
   })));
 
   // Insurance claim if exists

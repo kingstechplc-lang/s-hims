@@ -11,6 +11,7 @@ import { db } from "@/lib/db";
 import { getSession, hasPermission } from "@/lib/session";
 import { PERMISSIONS } from "@/lib/permissions";
 import { apiRouteConfig } from "@/lib/api-route-config";
+import { toNum, toNumOr } from "@/lib/decimal-utils";
 
 export const { dynamic, revalidate, maxDuration } = apiRouteConfig;
 
@@ -46,7 +47,7 @@ export async function GET(req: Request) {
       for (const f of fields) sumSpec[f] = true;
       const res = await db.invoice.aggregate({ where: w, _sum: sumSpec });
       const out: Record<string, number> = {};
-      for (const f of fields) out[f] = (res._sum as any)?.[f] ?? 0;
+      for (const f of fields) out[f] = toNum((res._sum as any)?.[f]) ?? 0;
       return out;
     } catch {
       const out: Record<string, number> = {};
@@ -67,7 +68,7 @@ export async function GET(req: Request) {
       return rows.map((r: any) => ({
         label: r[field] || "unknown",
         count: r._count ?? 0,
-        total: sumField ? (r._sum?.[sumField] ?? 0) : 0,
+        total: sumField ? (toNum(r._sum?.[sumField]) ?? 0) : 0,
       }));
     } catch {
       return [];

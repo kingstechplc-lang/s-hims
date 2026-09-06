@@ -10,6 +10,7 @@ import { PERMISSIONS } from "@/lib/permissions";
 import { notifyDeliveryRecorded } from "@/lib/workflow-notifications";
 
 import { apiRouteConfig } from "@/lib/api-route-config";
+import { toNum, toNumOr } from "@/lib/decimal-utils";
 
 export const { dynamic, revalidate, maxDuration } = apiRouteConfig;
 
@@ -221,8 +222,8 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
       });
       const isNhis = patientInsurance?.insuranceProvider?.code?.toUpperCase().includes("NHIS");
       const unitPrice = isNhis && deliveryService.nhisPrice != null
-        ? deliveryService.nhisPrice
-        : deliveryService.defaultPrice;
+        ? toNum(deliveryService.nhisPrice)
+        : toNum(deliveryService.defaultPrice);
 
       await db.invoiceItem.create({
         data: {
@@ -249,7 +250,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
         where: { id: invoice.id },
         data: {
           subtotal, discount: totalDiscount, tax: totalTax,
-          total: grandTotal, balance: grandTotal - (invoice.amountPaid || 0),
+          total: grandTotal, balance: grandTotal - toNum(invoice.amountPaid),
         },
       });
       invoiceId = invoice.id;

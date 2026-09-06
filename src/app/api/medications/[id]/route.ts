@@ -10,6 +10,7 @@ import { getSession, hasPermission, auditLog } from "@/lib/session";
 import { PERMISSIONS } from "@/lib/permissions";
 
 import { apiRouteConfig } from "@/lib/api-route-config";
+import { toNum, toNumOr } from "@/lib/decimal-utils";
 
 export const { dynamic, revalidate, maxDuration } = apiRouteConfig;
 
@@ -45,7 +46,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
     take: 20,
   });
 
-  return NextResponse.json({ item: med, inventoryItems });
+  return NextResponse.json({ item: { ...med, nhisTariffAmount: toNum(med.nhisTariffAmount) }, inventoryItems });
 }
 
 export async function PATCH(req: Request, { params }: { params: Promise<{ id: string }> }) {
@@ -117,7 +118,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
     newValues: updateData,
   });
 
-  return NextResponse.json({ item: updated });
+  return NextResponse.json({ item: { ...updated, nhisTariffAmount: toNum(updated.nhisTariffAmount) } });
 }
 
 export async function DELETE(req: Request, { params }: { params: Promise<{ id: string }> }) {

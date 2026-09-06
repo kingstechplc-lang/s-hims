@@ -10,6 +10,7 @@ import { getSession, auditLog, hasPermission } from "@/lib/session";
 import { PERMISSIONS } from "@/lib/permissions";
 
 import { apiRouteConfig } from "@/lib/api-route-config";
+import { toNum, toNumOr } from "@/lib/decimal-utils";
 
 export const { dynamic, revalidate, maxDuration } = apiRouteConfig;
 
@@ -34,7 +35,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
   if (!pkg || pkg.organizationId !== session.user.organizationId) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
-  return NextResponse.json({ item: pkg });
+  return NextResponse.json({ item: { ...pkg, packagePrice: toNum(pkg.packagePrice), nhisPrice: toNum(pkg.nhisPrice), components: pkg.components.map(c => ({ ...c, overridePrice: toNum(c.overridePrice), service: { ...c.service, defaultPrice: toNum(c.service.defaultPrice) } })) } });
 }
 
 export async function PATCH(req: Request, { params }: { params: Promise<{ id: string }> }) {
@@ -108,7 +109,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
     newValues: updateData,
   });
 
-  return NextResponse.json({ item: updated });
+  return NextResponse.json({ item: { ...updated, packagePrice: toNum(updated.packagePrice), nhisPrice: toNum(updated.nhisPrice), components: updated.components.map(c => ({ ...c, overridePrice: toNum(c.overridePrice), service: { ...c.service, defaultPrice: toNum(c.service.defaultPrice) } })) } });
 }
 
 export async function DELETE(req: Request, { params }: { params: Promise<{ id: string }> }) {

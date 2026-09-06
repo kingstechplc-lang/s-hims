@@ -9,6 +9,7 @@ import { getSession, auditLog, hasPermission, nextClaimNumber } from "@/lib/sess
 import { PERMISSIONS } from "@/lib/permissions";
 
 import { apiRouteConfig } from "@/lib/api-route-config";
+import { toNum, toNumOr } from "@/lib/decimal-utils";
 
 export const { dynamic, revalidate, maxDuration } = apiRouteConfig;
 
@@ -120,7 +121,7 @@ export async function POST(req: Request) {
       finalDxName = finalDxName || catalogEntry.name;
       gdrgCode = catalogEntry.nhisGdrgCode || null;
       gdrgName = catalogEntry.nhisGdrgName || null;
-      nhisTariff = catalogEntry.nhisTariff || null;
+      nhisTariff = toNum(catalogEntry.nhisTariff) || null;
     }
   }
 

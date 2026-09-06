@@ -18,6 +18,7 @@ import { getSession, auditLog, hasPermission, nextPaymentNumber } from "@/lib/se
 import { PERMISSIONS } from "@/lib/permissions";
 
 import { apiRouteConfig } from "@/lib/api-route-config";
+import { toNum, toNumOr } from "@/lib/decimal-utils";
 
 export const { dynamic, revalidate, maxDuration } = apiRouteConfig;
 
@@ -170,7 +171,7 @@ export async function POST(req: Request) {
       });
 
       // 3. Update invoice
-      const newAmountPaid = invoice.amountPaid + amt;
+      const newAmountPaid = toNum(invoice.amountPaid) + amt;
       const newBalance = Math.max(0, invoice.total - newAmountPaid);
       let newStatus = invoice.status;
       if (newBalance <= 0.001) newStatus = "paid";

@@ -10,6 +10,7 @@ import { db } from "@/lib/db";
 import { getSession, hasPermission } from "@/lib/session";
 import { PERMISSIONS } from "@/lib/permissions";
 import { apiRouteConfig } from "@/lib/api-route-config";
+import { toNum, toNumOr } from "@/lib/decimal-utils";
 
 export const { dynamic, revalidate, maxDuration } = apiRouteConfig;
 
@@ -280,15 +281,15 @@ export async function GET(req: Request, { params }: { params: Promise<{ type: st
         type: "financial",
         stats: {
           invoices,
-          totalRevenue: totalRevenue._sum.total || 0,
-          totalPaid: totalPaid._sum.amountPaid || 0,
-          totalOutstanding: totalOutstanding._sum.balance || 0,
-          totalDiscounts: totalDiscounts._sum.discount || 0,
+          totalRevenue: toNum(totalRevenue._sum.total) || 0,
+          totalPaid: toNum(totalPaid._sum.amountPaid) || 0,
+          totalOutstanding: toNum(totalOutstanding._sum.balance) || 0,
+          totalDiscounts: toNum(totalDiscounts._sum.discount) || 0,
           totalPayments: payments._count,
-          paymentsAmount: payments._sum.amount || 0,
+          paymentsAmount: toNum(payments._sum.amount) || 0,
           claimsCount: insuranceClaims._count,
-          claimsAmount: insuranceClaims._sum.claimAmount || 0,
-          approvedAmount: insuranceClaims._sum.approvedAmount || 0,
+          claimsAmount: toNum(insuranceClaims._sum.claimAmount) || 0,
+          approvedAmount: toNum(insuranceClaims._sum.approvedAmount) || 0,
         },
         byStatus: byStatusData,
         byFacility: byFacilityData,
@@ -533,7 +534,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ type: st
 
       return NextResponse.json({
         type: "insurance",
-        stats: { total, submitted, approved, rejected, paid, pending, totalClaimAmount: totalAmount._sum.claimAmount || 0, approvedAmount: approvedAmount._sum.approvedAmount || 0 },
+        stats: { total, submitted, approved, rejected, paid, pending, totalClaimAmount: toNum(totalAmount._sum.claimAmount) || 0, approvedAmount: toNum(approvedAmount._sum.approvedAmount) || 0 },
         byStatus: byStatusData,
         tableColumns: ["Claim Status", "Count"],
         tableRows: byStatusData.map((s) => [s.label, String(s.value)]),

@@ -8,6 +8,7 @@ import { db } from "@/lib/db";
 import { getSession, hasPermission } from "@/lib/session";
 import { PERMISSIONS } from "@/lib/permissions";
 import { apiRouteConfig } from "@/lib/api-route-config";
+import { toNum, toNumOr } from "@/lib/decimal-utils";
 
 export const { dynamic, revalidate, maxDuration } = apiRouteConfig;
 
@@ -201,7 +202,7 @@ export async function POST(req: Request) {
           diagnoses,
           services: invoice?.items?.filter((it: any) => it.service).map((it: any) => ({
             id: it.service.id, name: it.service.name, code: it.service.code,
-            nhisServiceCode: it.service.nhisServiceCode, nhisPrice: it.service.nhisPrice,
+            nhisServiceCode: it.service.nhisServiceCode, nhisPrice: toNum(it.service.nhisPrice),
             nhisEligible: it.service.nhisEligible,
           })) || [],
           medications: [],

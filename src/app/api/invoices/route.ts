@@ -15,6 +15,7 @@ import { db } from "@/lib/db";
 import { getSession, auditLog, hasPermission, nextInvoiceNumber } from "@/lib/session";
 import { PERMISSIONS } from "@/lib/permissions";
 import { apiRouteConfig } from "@/lib/api-route-config";
+import { toNum, toNumOr } from "@/lib/decimal-utils";
 
 export const { dynamic, revalidate, maxDuration } = apiRouteConfig;
 
@@ -126,6 +127,7 @@ export async function GET(req: Request) {
   // Decorate with computed isOverdue flag
   const items = invoices.map((inv) => ({
     ...inv,
+    amountPaid: toNum(inv.amountPaid),
     isOverdue: isOverdue(inv),
   }));
 
@@ -332,7 +334,7 @@ export async function POST(req: Request) {
       },
     });
 
-    return NextResponse.json({ item: invoice }, { status: 201 });
+    return NextResponse.json({ item: { ...invoice, amountPaid: toNum(invoice.amountPaid) } }, { status: 201 });
   } catch (e: any) {
     return NextResponse.json({ error: e.message || "Failed to create invoice" }, { status: 400 });
   }

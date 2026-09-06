@@ -10,6 +10,7 @@ import { getSession, hasPermission, auditLog } from "@/lib/session";
 import { PERMISSIONS } from "@/lib/permissions";
 
 import { apiRouteConfig } from "@/lib/api-route-config";
+import { toNum, toNumOr } from "@/lib/decimal-utils";
 
 export const { dynamic, revalidate, maxDuration } = apiRouteConfig;
 
@@ -43,7 +44,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
   if (!service || service.organizationId !== session.user.organizationId) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
-  return NextResponse.json({ item: service });
+  return NextResponse.json({ item: { ...service, defaultPrice: toNum(service.defaultPrice), nhisPrice: toNum(service.nhisPrice), insurancePrice: toNum(service.insurancePrice), cashPrice: toNum(service.cashPrice), facilityPrices: service.facilityPrices.map(fp => ({ ...fp, price: toNum(fp.price), nhisPrice: toNum(fp.nhisPrice) })) } });
 }
 
 export async function PATCH(req: Request, { params }: { params: Promise<{ id: string }> }) {
@@ -110,7 +111,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
       oldValues: { oldPrice: existingFp?.price },
       newValues: { facilityId, serviceId: id, price: Number(price) },
     });
-    return NextResponse.json({ item: updated });
+    return NextResponse.json({ item: { ...updated, price: toNum(updated.price), nhisPrice: toNum(updated.nhisPrice) } });
   }
 
   if (action === "delete_facility_price" && facilityId) {
@@ -191,7 +192,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
     newValues: updateData,
   });
 
-  return NextResponse.json({ item: updated });
+  return NextResponse.json({ item: { ...updated, defaultPrice: toNum(updated.defaultPrice), nhisPrice: toNum(updated.nhisPrice), insurancePrice: toNum(updated.insurancePrice), cashPrice: toNum(updated.cashPrice) } });
 }
 
 export async function DELETE(req: Request, { params }: { params: Promise<{ id: string }> }) {

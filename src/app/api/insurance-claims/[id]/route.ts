@@ -15,6 +15,7 @@ import { getSession, auditLog, hasPermission, nextPaymentNumber } from "@/lib/se
 import { PERMISSIONS } from "@/lib/permissions";
 
 import { apiRouteConfig } from "@/lib/api-route-config";
+import { toNum, toNumOr } from "@/lib/decimal-utils";
 
 export const { dynamic, revalidate, maxDuration } = apiRouteConfig;
 
@@ -195,7 +196,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
         });
 
         // Update invoice
-        const newAmountPaid = invoice.amountPaid + payment.amount;
+        const newAmountPaid = toNum(invoice.amountPaid) + payment.amount;
         const newBalance = Math.max(0, invoice.total - newAmountPaid);
         let newStatus = invoice.status;
         if (newBalance <= 0.001) newStatus = "paid";

@@ -9,6 +9,7 @@ import { getSession, auditLog, hasPermission } from "@/lib/session";
 import { PERMISSIONS } from "@/lib/permissions";
 
 import { apiRouteConfig } from "@/lib/api-route-config";
+import { toNum, toNumOr } from "@/lib/decimal-utils";
 
 export const { dynamic, revalidate, maxDuration } = apiRouteConfig;
 
@@ -65,9 +66,13 @@ export async function GET(req: Request) {
     const fp = s.facilityPrices[0];
     return {
       ...s,
-      unitPrice: fp ? fp.price : s.defaultPrice,
+      defaultPrice: toNum(s.defaultPrice),
+      nhisPrice: toNum(s.nhisPrice),
+      insurancePrice: toNum(s.insurancePrice),
+      cashPrice: toNum(s.cashPrice),
+      unitPrice: fp ? toNum(fp.price) : toNum(s.defaultPrice),
       facilityPriceId: fp ? fp.id : null,
-      facilityPrice: fp || null,
+      facilityPrice: fp ? { ...fp, price: toNum(fp.price), nhisPrice: toNum(fp.nhisPrice) } : null,
       invoiceCount: s._count?.invoiceItems || 0,
       facilityPrices: undefined,
       _count: undefined,
@@ -185,7 +190,7 @@ export async function POST(req: Request) {
       newValues: { name, code, category, serviceType, defaultPrice: newDefaultPrice, nhisPrice, isBillable, nhisEligible },
     });
 
-    return NextResponse.json({ item: service }, { status: 201 });
+    return NextResponse.json({ item: { ...service, defaultPrice: toNum(service.defaultPrice), nhisPrice: toNum(service.nhisPrice), insurancePrice: toNum(service.insurancePrice), cashPrice: toNum(service.cashPrice) } }, { status: 201 });
   } catch (e: any) {
     return NextResponse.json({ error: e.message || "Failed to create service" }, { status: 400 });
   }

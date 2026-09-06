@@ -10,6 +10,7 @@ import { getSession, hasPermission, auditLog } from "@/lib/session";
 import { PERMISSIONS } from "@/lib/permissions";
 
 import { apiRouteConfig } from "@/lib/api-route-config";
+import { toNum, toNumOr } from "@/lib/decimal-utils";
 
 export const { dynamic, revalidate, maxDuration } = apiRouteConfig;
 
@@ -37,7 +38,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
-  return NextResponse.json({ item: dept });
+  return NextResponse.json({ item: { ...dept, services: dept.services.map(s => ({ ...s, defaultPrice: toNum(s.defaultPrice) })) } });
 }
 
 export async function PATCH(req: Request, { params }: { params: Promise<{ id: string }> }) {

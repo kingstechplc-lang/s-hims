@@ -11,6 +11,7 @@ import { isDuplicateDose, getNextDueDose } from "@/lib/immunization-schedule";
 import { notifyVaccineAdministered, notifyVaccineStockOut } from "@/lib/workflow-notifications";
 
 import { apiRouteConfig } from "@/lib/api-route-config";
+import { toNum, toNumOr } from "@/lib/decimal-utils";
 
 export const { dynamic, revalidate, maxDuration } = apiRouteConfig;
 
@@ -331,8 +332,8 @@ export async function POST(req: Request) {
           });
           const isNhis = patientInsurance?.insuranceProvider?.code?.toUpperCase().includes("NHIS");
           const unitPrice = isNhis && service.nhisPrice != null
-            ? service.nhisPrice
-            : service.defaultPrice;
+            ? toNum(service.nhisPrice)
+            : toNum(service.defaultPrice);
 
           // Create the invoice item
           await tx.invoiceItem.create({
@@ -364,7 +365,7 @@ export async function POST(req: Request) {
               discount: totalDiscount,
               tax: totalTax,
               total: grandTotal,
-              balance: grandTotal - (invoice.amountPaid || 0),
+              balance: grandTotal - toNum(invoice.amountPaid),
             },
           });
           invoiceId = invoice.id;

@@ -9,6 +9,7 @@ import { db } from "@/lib/db";
 import { getSession, hasPermission, auditLog } from "@/lib/session";
 import { PERMISSIONS } from "@/lib/permissions";
 import { apiRouteConfig } from "@/lib/api-route-config";
+import { toNum, toNumOr } from "@/lib/decimal-utils";
 
 export const { dynamic, revalidate, maxDuration } = apiRouteConfig;
 
@@ -68,7 +69,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
     include: { items: true, payments: true },
   });
   const totalBilled = invoices.reduce((s, inv) => s + (inv.total || 0), 0);
-  const totalPaid = invoices.reduce((s, inv) => s + (inv.amountPaid || 0), 0);
+  const totalPaid = invoices.reduce((s, inv) => s + toNumOr(inv.amountPaid, 0), 0);
   const outstandingBalance = totalBilled - totalPaid;
 
   // Allergies

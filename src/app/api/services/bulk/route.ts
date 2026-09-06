@@ -9,6 +9,7 @@ import { getSession, hasPermission, auditLog } from "@/lib/session";
 import { PERMISSIONS } from "@/lib/permissions";
 
 import { apiRouteConfig } from "@/lib/api-route-config";
+import { toNum, toNumOr } from "@/lib/decimal-utils";
 
 export const { dynamic, revalidate, maxDuration } = apiRouteConfig;
 
@@ -62,7 +63,7 @@ export async function POST(req: Request) {
       updateData.status = "inactive";
     } else {
       // Price update
-      const currentPrice = priceType === "nhis" ? (svc.nhisPrice ?? 0) : svc.defaultPrice;
+      const currentPrice = priceType === "nhis" ? (toNum(svc.nhisPrice) ?? 0) : toNum(svc.defaultPrice);
       oldPrice = currentPrice;
 
       if (action === "percentage_increase") {

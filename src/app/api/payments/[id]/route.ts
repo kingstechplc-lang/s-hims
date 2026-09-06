@@ -20,6 +20,7 @@ import { getSession, auditLog, hasPermission } from "@/lib/session";
 import { PERMISSIONS } from "@/lib/permissions";
 
 import { apiRouteConfig } from "@/lib/api-route-config";
+import { toNum, toNumOr } from "@/lib/decimal-utils";
 
 export const { dynamic, revalidate, maxDuration } = apiRouteConfig;
 
@@ -104,7 +105,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
 
         // Roll back the invoice: subtract the reversed amount from
         // amountPaid, add it back to balance, recompute status.
-        const newAmountPaid = Math.max(0, invoice.amountPaid - existing.amount);
+        const newAmountPaid = Math.max(0, toNum(invoice.amountPaid) - existing.amount);
         const newBalance = Math.max(0, invoice.total - newAmountPaid);
         let newStatus = invoice.status;
         if (newAmountPaid <= 0.001) {

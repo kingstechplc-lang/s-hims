@@ -10,6 +10,7 @@ import { PERMISSIONS } from "@/lib/permissions";
 import { notifyAncVisitRecorded } from "@/lib/workflow-notifications";
 
 import { apiRouteConfig } from "@/lib/api-route-config";
+import { toNum, toNumOr } from "@/lib/decimal-utils";
 
 export const { dynamic, revalidate, maxDuration } = apiRouteConfig;
 
@@ -171,8 +172,8 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
         });
         const isNhis = patientInsurance?.insuranceProvider?.code?.toUpperCase().includes("NHIS");
         const unitPrice = isNhis && ancService.nhisPrice != null
-          ? ancService.nhisPrice
-          : ancService.defaultPrice;
+          ? toNum(ancService.nhisPrice)
+          : toNum(ancService.defaultPrice);
 
         await tx.invoiceItem.create({
           data: {
@@ -203,7 +204,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
             discount: totalDiscount,
             tax: totalTax,
             total: grandTotal,
-            balance: grandTotal - (invoice.amountPaid || 0),
+            balance: grandTotal - toNum(invoice.amountPaid),
           },
         });
         invoiceId = invoice.id;
