@@ -189,8 +189,8 @@ export async function POST(req: Request) {
         const allItems = await tx.invoiceItem.findMany({ where: { invoiceId: existingInvoice.id } });
         const newSubtotal = allItems.reduce((s, i) => s + (i.total || 0), 0);
         const newTotal = newSubtotal - (existingInvoice.discount || 0) + (existingInvoice.tax || 0);
-        const newBalance = newTotal - toNum(existingInvoice.amountPaid);
-        const newStatus = newBalance <= 0.0001 ? "paid" : (toNum(existingInvoice.amountPaid) > 0 ? "partially_paid" : existingInvoice.status);
+        const newBalance = newTotal - toNum(existingInvoice!.amountPaid);
+        const newStatus = newBalance <= 0.0001 ? "paid" : (toNum(existingInvoice!.amountPaid) > 0 ? "partially_paid" : existingInvoice!.status);
         invoice = await tx.invoice.update({
           where: { id: existingInvoice.id },
           data: {
