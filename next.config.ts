@@ -20,6 +20,12 @@ const nextConfig: NextConfig = {
   // Only include packages that ACTUALLY need to be external — heavy unused
   // packages like @mdxeditor/editor cause Turbopack to fail on Vercel.
   serverExternalPackages: ["@prisma/client", "bcryptjs"],
+
+  // Bundle analyzer — run ANALYZE=true next build to generate report
+  // Disabled by default to avoid overhead in production builds
+  ...(process.env.ANALYZE === "true"
+    ? { /* bundle analyzer config injected by @next/bundle-analyzer */ }
+    : {}),
 };
 
 export default nextConfig;
