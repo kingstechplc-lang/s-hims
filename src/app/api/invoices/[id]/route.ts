@@ -298,7 +298,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
         const items = await tx.invoiceItem.findMany({ where: { invoiceId: id } });
         const newSubtotal = items.reduce((s, it) => s + it.total, 0);
         const newTotal = Math.max(0, newSubtotal - existing.discount + existing.tax);
-        const newBalance = Math.max(0, newTotal - toNum(existing.amountPaid) - existing.amountCredited - existing.amountRefunded);
+        const newBalance = Math.max(0, newTotal - toNumOr(existing.amountPaid, 0) - existing.amountCredited - existing.amountRefunded);
 
         const inv = await tx.invoice.update({
           where: { id },
@@ -833,7 +833,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
     }
     const newDiscount = Number(body.discount) || 0;
     const newTotal = Math.max(0, existing.subtotal - newDiscount + existing.tax);
-    const newBalance = Math.max(0, newTotal - toNum(existing.amountPaid) - existing.amountCredited - existing.amountRefunded);
+    const newBalance = Math.max(0, newTotal - toNumOr(existing.amountPaid, 0) - existing.amountCredited - existing.amountRefunded);
     data.discount = newDiscount;
     data.total = newTotal;
     data.balance = newBalance;
@@ -847,7 +847,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
   if (body.tax !== undefined && !FINAL_STATUSES.includes(existing.status)) {
     const newTax = Number(body.tax) || 0;
     const newTotal = Math.max(0, existing.subtotal - (data.discount ?? existing.discount) + newTax);
-    const newBalance = Math.max(0, newTotal - toNum(existing.amountPaid) - existing.amountCredited - existing.amountRefunded);
+    const newBalance = Math.max(0, newTotal - toNumOr(existing.amountPaid, 0) - existing.amountCredited - existing.amountRefunded);
     data.tax = newTax;
     data.total = newTotal;
     data.balance = newBalance;

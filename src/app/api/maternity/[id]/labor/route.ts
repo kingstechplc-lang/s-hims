@@ -250,7 +250,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
         where: { id: invoice.id },
         data: {
           subtotal, discount: totalDiscount, tax: totalTax,
-          total: grandTotal, balance: grandTotal - toNum(invoice.amountPaid),
+          total: grandTotal, balance: grandTotal - toNumOr(invoice.amountPaid, 0),
         },
       });
       invoiceId = invoice.id;

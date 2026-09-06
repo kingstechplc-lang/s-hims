@@ -196,7 +196,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
         });
 
         // Update invoice
-        const newAmountPaid = toNum(invoice.amountPaid) + payment.amount;
+        const newAmountPaid = toNumOr(invoice.amountPaid, 0) + payment.amount;
         const newBalance = Math.max(0, invoice.total - newAmountPaid);
         let newStatus = invoice.status;
         if (newBalance <= 0.001) newStatus = "paid";

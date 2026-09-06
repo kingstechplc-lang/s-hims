@@ -365,7 +365,7 @@ export async function POST(req: Request) {
               discount: totalDiscount,
               tax: totalTax,
               total: grandTotal,
-              balance: grandTotal - toNum(invoice.amountPaid),
+              balance: grandTotal - toNumOr(invoice.amountPaid, 0),
             },
           });
           invoiceId = invoice.id;
